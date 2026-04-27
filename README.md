@@ -133,6 +133,4 @@ This project is licensed under the MIT License.
 
 ---
 
-## 💡 Resume Description
 
-Developed a Python-based website downtime monitoring system using UptimeRobot API and SMTP, enabling real-time outage detection and automated email alerts.
