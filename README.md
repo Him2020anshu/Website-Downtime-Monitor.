@@ -47,8 +47,8 @@ It leverages the UptimeRobot API for status checks and Gmail SMTP for sending no
 
 ### 1. Clone Repository
 
-git clone https://github.com/Manu-Abuya/Website-Uptime-Monitor.git
-cd Website-Uptime-Monitor
+git clone https://github.com/Him2020anshu/Website-Downtime-Monitor.git
+cd Website-Downtime-Monitor
 
 ### 2. Install Dependencies
 
