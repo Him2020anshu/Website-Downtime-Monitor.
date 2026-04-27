@@ -1,38 +1,64 @@
 import requests
 import time
 import smtplib
+from email.mime.text import MIMEText
 
-# UptimeRobot API Key
-API_KEY = 'YOUR_UPTIMEROBOT_API_KEY'
-
-# List of websites to monitor
-websites = [
-    {'name': 'Example', 'url': 'https://example.com'},
-    {'name': 'Google', 'url': 'https://google.com'},
-    {'name': 'Jumia', 'url': 'https://www.jumia.co.ke/'},
+# ---------------- CONFIG ----------------
+WEBSITES = [
+    "https://google.com",
+    "https://github.com",
+    "https://stackoverflow.com"  # add your sites
 ]
 
-# Email configuration
-SMTP_SERVER = 'smtp.gmail.com'
-SMTP_PORT = 587
-EMAIL_ADDRESS = 'YOUR_EMAIL_ADDRESS'
-EMAIL_PASSWORD = 'YOUR_EMAIL_PASSWORD'
-RECIPIENT_ADDRESS = 'RECIPIENT_EMAIL_ADDRESS'
+CHECK_INTERVAL = 60  # seconds
 
-def send_email(subject, body):
-    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as smtp:
-        smtp.starttls()
-        smtp,login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-        message = f'Subject: {subject}\n\n{body}'
-        smtp.sendmail(EMAIL_ADDRESS, RECIPIENT_ADDRESS, message)
-   
-while True:
-    for website in websites:
-        try:
-            response = requests.get(website['url'])
-            if response.status_code != 200:
-                send_email(f'{website["name"]} is down!', f'{website["name"]} is not responding. Status code: {response.status_code}')
-        except requests.exceptions.RequestException:
-            send_email(f'{website["name"]} is down!', f'{website["name"]} is not responding. Connection error.') 
-            
-    time.sleep(60) # Check every minute       
+EMAIL = "rajh92361@gmail.com"
+PASSWORD = "password"
+TO_EMAIL = "jhasunny@gmail.com"
+# ----------------------------------------
+
+
+def send_email(site):
+    subject = "🚨 Website Down Alert"
+    body = f"Website {site} is DOWN. Please check immediately!"
+
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = EMAIL
+    msg["To"] = TO_EMAIL
+
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(EMAIL, PASSWORD)
+            server.sendmail(EMAIL, TO_EMAIL, msg.as_string())
+        print(f"[EMAIL SENT] Alert for {site}")
+    except Exception as e:
+        print("Email failed:", e)
+
+
+def check_website(site):
+    try:
+        response = requests.get(site, timeout=5)
+        if response.status_code == 200:
+            print(f"[UP] {site}")
+            return True
+        else:
+            print(f"[DOWN] {site} - Status: {response.status_code}")
+            return False
+    except requests.exceptions.RequestException:
+        print(f"[DOWN] {site} - No response")
+        return False
+
+
+def monitor():
+    while True:
+        for site in WEBSITES:
+            if not check_website(site):
+                send_email(site)
+        print("----- Checking again in", CHECK_INTERVAL, "seconds -----")
+        time.sleep(CHECK_INTERVAL)
+
+
+if __name__ == "__main__":
+    monitor()
