@@ -1,76 +1,138 @@
-# Website Uptime Monitor
+# 🌐 Website Downtime Monitor
 
-This is a simple Python script that periodically checks the availability of websites or services and sends notifications when downtime is detected. It utilizes the UptimeRobot API to check the website status and sends email notifications using Gmail's SMTP server.
+A lightweight Python-based tool that continuously monitors websites or services and **alerts you instantly when downtime is detected**.
+It leverages the UptimeRobot API for status checks and Gmail SMTP for sending notifications.
 
-## Features
+---
 
-- Monitors the uptime of multiple websites or services
-- Sends email notifications when a website/service is down
-- Easy configuration of websites to monitor
-- Adjustable monitoring interval (default: 1 minute)
-- Customizable email notification messages
+## 🚀 Features
 
-## Prerequisites
+* Monitor multiple websites/services
+* Detect downtime in real-time
+* Send instant email alerts
+* Easy configuration
+* Adjustable monitoring interval (default: 60 seconds)
+* Customizable alert messages
 
-- Python (version 3.6 or higher)
-- `requests` library
-- Gmail account (for sending email notifications)
+---
 
-## Getting Started
+## 📌 How It Works
 
-1. Clone the repository:
-    ```shell
-    git clone https://github.com/Manu-Abuya/Website-Uptime-Monitor.git
-    ```
+1. The script queries the UptimeRobot API
+2. Checks the status of configured websites
+3. If any website is **DOWN**, an email alert is triggered
+4. The process repeats at a fixed interval
 
-2. Install the required libraries:
-    ```shell
-    pip install requests
-    ```
-    
+---
 
-3. Set up the UptimeRobot API:
+## 🧰 Tech Stack
 
-    - Create an UptimeRobot account at https://uptimerobot.com/ if you haven't already.
-    - Obtain your API key from the "My Settings" section of your UptimeRobot account.
+* Python 3
+* requests library
+* SMTP (Gmail)
+* UptimeRobot API
 
-4. Set up Gmail SMTP:
+---
 
-    - Create a Gmail account if you don't have one.
-    - Enable "Less Secure Apps" access in your Gmail account settings or set up an app password for enhanced security.
+## 📋 Prerequisites
 
-5. Configure the script:
+* Python 3.6 or higher
+* Internet connection
+* Gmail account (for alerts)
+* UptimeRobot account (API key required)
 
-    - Open `website_monitor.py` in a text editor.
-    - Replace `'YOUR_UPTIMEROBOT_API_KEY'` with your UptimeRobot API key.
-    - Replace `'YOUR_EMAIL_ADDRESS'` and `'YOUR_EMAIL_PASSWORD'` with your Gmail account credentials.
-    - Replace `'RECIPIENT_EMAIL_ADDRESS'` with the email address where you want to receive notifications.
+---
 
-6. Run the script:
+## ⚙️ Setup Guide
 
-    ```shell
-    python website_monitor.py
-    ```
-    
- 
-The script will start monitoring the websites at the specified interval (default: 1 minute). You will receive email notifications whenever a website goes down.
+### 1. Clone Repository
 
-## Customization
+git clone https://github.com/Manu-Abuya/Website-Uptime-Monitor.git
+cd Website-Uptime-Monitor
 
-- To monitor additional websites, add them to the `websites` list in `website_monitor.py` with the desired name and URL.
-- You can adjust the monitoring interval by changing the value in the `time.sleep()` function (in seconds).
-- Modify the email notification messages in the `send_email()` function to suit your preferences.
+### 2. Install Dependencies
 
-## License
+pip install requests
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+### 3. Get UptimeRobot API Key
 
-## Acknowledgments
+* Create account at https://uptimerobot.com/
+* Go to My Settings → API Settings
+* Copy your Main API Key
 
-This project was inspired by the need for a simple and lightweight website uptime monitoring solution. It utilizes the UptimeRobot API for website status checks and Gmail's SMTP server for email notifications.
+### 4. Configure Gmail SMTP
 
-Feel free to contribute, open issues, or provide feedback to help improve this project.
+* Enable App Password (recommended)
+* Avoid using your real password
 
+### 5. Configure Script
 
+Open `website_monitor.py` and update:
 
+API_KEY = "YOUR_UPTIMEROBOT_API_KEY"
+EMAIL = "[your_email@gmail.com](mailto:your_email@gmail.com)"
+PASSWORD = "your_app_password"
+TO_EMAIL = "[recipient_email@gmail.com](mailto:recipient_email@gmail.com)"
 
+### 6. Run the Script
+
+python website_monitor.py
+
+---
+
+## 🛠 Customization
+
+* Add more websites in the `websites` list
+* Change monitoring interval using time.sleep(seconds)
+* Customize email message format in send_email()
+* Add logging for downtime history
+
+---
+
+## 📊 Example Alert
+
+Subject: Website Down Alert
+
+Your monitored website is DOWN.
+
+Website: Example.com
+Status: DOWN
+Time: 12:45 PM
+
+Please take immediate action.
+
+---
+
+## 📌 Use Cases
+
+* Monitor personal projects
+* Track production servers
+* Get alerts during outages
+* Useful for DevOps and backend monitoring
+
+---
+
+## ⚠️ Security Note
+
+* Do not expose API keys or credentials publicly
+* Use environment variables for security
+* Prefer App Password instead of real Gmail password
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 🙌 Acknowledgments
+
+* UptimeRobot API for uptime monitoring
+* Gmail SMTP for email notifications
+
+---
+
+## 💡 Resume Description
+
+Developed a Python-based website downtime monitoring system using UptimeRobot API and SMTP, enabling real-time outage detection and automated email alerts.
